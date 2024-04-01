@@ -1,17 +1,11 @@
 return {
   'christoomey/vim-tmux-navigator',
-  cmd = {
-    'TmuxNavigateLeft',
-    'TmuxNavigateDown',
-    'TmuxNavigateUp',
-    'TmuxNavigateRight',
-    'TmuxNavigatePrevious',
-  },
+  event = 'VimEnter',
   keys = {
-    { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-    { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-    { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-    { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
-    { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
+    { '<C-h>', '<cmd>TmuxNavigateLeft<cr>', desc = 'Navigate to the left pane' },
+    { '<C-j>', '<cmd>TmuxNavigateDown<cr>', desc = 'Navigate to the pane below' },
+    { '<C-k>', '<cmd>TmuxNavigateUp<cr>', desc = 'Navigate to the pane above' },
+    { '<C-l>', '<cmd>TmuxNavigateRight<cr>', desc = 'Navigate to the right pane' },
+    { '<C-\\>', '<cmd>TmuxNavigatePrevious<cr>', desc = 'Navigate to the previous pane' },
   },
 }
