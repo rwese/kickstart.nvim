@@ -1,8 +1,21 @@
+function vim.getVisualSelection()
+  vim.cmd 'noau normal! "vy"'
+  local text = vim.fn.getreg 'v'
+  vim.fn.setreg('v', {})
+
+  text = string.gsub(text, '\n', '')
+  if #text > 0 then
+    return text
+  else
+    return ''
+  end
+end
+
 vim.opt.relativenumber = true
 vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+-- vim.opt.tabstop = 2
+-- vim.opt.softtabstop = 2
+-- vim.opt.shiftwidth = 2
 vim.opt.swapfile = false
 
 -- vim.g.mapleader = ' '
@@ -13,6 +26,10 @@ vim.opt.swapfile = false
 -- vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+vim.keymap.set('v', '/', function()
+  vim.cmd('/' .. vim.getVisualSelection())
+end)
+
 vim.wo.number = true
 
 vim.g.background = 'light'
