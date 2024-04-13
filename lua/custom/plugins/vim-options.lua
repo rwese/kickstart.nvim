@@ -1,4 +1,3 @@
-vim.api.nvim_set_keymap('n', 'gr', '<cmd>Telescope lsp_references<CR>', { noremap = true })
 vim.opt.relativenumber = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
