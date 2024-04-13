@@ -41,6 +41,5 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
 
-vim.g.tmux_navigator_no_wrap = 1
 
 return {}

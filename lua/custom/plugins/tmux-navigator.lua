@@ -1,3 +1,5 @@
+vim.g.tmux_navigator_no_wrap = 1
+
 return {
   'christoomey/vim-tmux-navigator',
   event = 'VimEnter',
