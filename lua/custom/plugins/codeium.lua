@@ -5,16 +5,14 @@ return {
     'hrsh7th/nvim-cmp',
   },
   config = function()
-    require('codeium').setup {}
-
-    vim.g.codeium_enabled = true -- Enable Codeium by default
-    vim.g.codeium_idle_delay = 500 -- Set the idle delay (in milliseconds)
-    -- vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-    vim.keymap.set('i', '<C-.>', function()
-      return vim.fn['codeium#'](1)
-    end, { expr = true })
-
-    -- vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-    -- vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    require('codeium').setup {
+      enabled = true, -- Enable Codeium by default
+      idle_delay = 500, -- Set the idle delay (in milliseconds)
+      keymaps = {
+        accept = '<C-.>', -- Set the keymap to accept the completion
+        -- cycle_completions = '<C-,>', -- Set the keymap to cycle through completions (uncomment if needed)
+        -- clear = '<C-x>', -- Set the keymap to clear the current completion (uncomment if needed)
+      },
+    }
   end,
 }
