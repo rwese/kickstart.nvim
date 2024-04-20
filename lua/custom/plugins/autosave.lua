@@ -1,15 +1,7 @@
 vim.keymap.set('n', '<leader>n', ':ASToggle<CR>', { desc = 'Toggle autosave' })
 
-vim.keymap.set('n', '<leader>be', function()
-  if BufferHasErrors() then
-    vim.notify 'error'
-  else
-    vim.notify 'all ok'
-  end
-end, { desc = 'has errors' })
-
 function BufferHasErrors()
-  local clients = vim.lsp.buf_get_clients()
+  local clients = vim.lsp.get_active_clients()
 
   if next(clients) == nil then
     return true
@@ -52,7 +44,7 @@ return {
 
       if utils.not_in(fn.getbufvar(buf, '&filetype'), { 'autocmd', 'notify', 'oil' }) then
         if BufferHasErrors() then
-          vim.notify('Autosave: Buffer has errors, not saving!', vim.log.levels.ERROR)
+          -- vim.notify('Autosave: Buffer has errors, not saving!', vim.log.levels.ERROR)
           return false
         end
 
