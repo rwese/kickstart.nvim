@@ -39,8 +39,18 @@ return {
       local fn = vim.fn
       local utils = require 'auto-save.utils.data'
 
-      -- vim.notify("filetype: " .. fn.getbufvar(buf, "&filetype"))
-      if fn.getbufvar(buf, '&modifiable') == 1 and utils.not_in(fn.getbufvar(buf, '&filetype'), { 'autocmd', 'notify', 'oil' }) then
+      -- vim.notify('filetype: ' .. fn.getbufvar(buf, '&filetype'))
+      -- vim.notify('filename: ' .. fn.expand '%')
+
+      if not fn.getbufvar(buf, '&modifiable') == 1 then
+        return false
+      end
+
+      if fn.expand '%' == '' then
+        return false
+      end
+
+      if utils.not_in(fn.getbufvar(buf, '&filetype'), { 'autocmd', 'notify', 'oil' }) then
         if BufferHasErrors() then
           vim.notify('Autosave: Buffer has errors, not saving!', vim.log.levels.ERROR)
           return false
@@ -48,6 +58,7 @@ return {
 
         return true
       end
+
       return false
     end,
     write_all_buffers = false,
