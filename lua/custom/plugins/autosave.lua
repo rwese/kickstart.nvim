@@ -22,6 +22,7 @@ return {
   lazy = false,
   event = { 'InsertLeave', 'TextChanged' },
   opts = {
+    enabled = false,
     trigger_events = { -- See :h events
       immediate_save = { 'BufLeave', 'FocusLost' }, -- vim events that trigger an immediate save
       defer_save = { 'InsertLeave', 'TextChanged' }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
