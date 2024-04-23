@@ -143,7 +143,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', lead = '·' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -237,7 +237,7 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
-  'nvim-lua/plenary.nvim',
+  { 'nvim-lua/plenary.nvim', commit = '62d1e2e5691865586187bd6aa890e43b85c00518' },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -286,11 +286,11 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
+        ['<leader>c'] = { mode = { 'n', 'v' }, name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+        ['<leader>g'] = { mode = { 'n', 'v' }, name = '[G]it', _ = 'which_key_ignore' },
         ['<leader>l'] = { name = '[L]azy', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
+        ['<leader>r'] = { mode = { 'n', 'v' }, name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
       }
@@ -365,13 +365,15 @@ require('lazy').setup({
           -- mappings = {
           --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           -- },
-          path_display = { 'truncate' },
+          path_display = { 'shorten=2' },
           wrap_results = true,
         },
         pickers = {
-          -- find_files = {
-          --   theme = 'dropdown',
-          -- },
+          find_files = {
+            find_command = { 'rg', '--files', '--hidden', '-g', '!.git', '-g', '!tmp', '-L' },
+            hidden = false,
+            no_ignore = true,
+          },
         },
         extensions = {
           ['ui-select'] = {
@@ -621,6 +623,7 @@ require('lazy').setup({
         'intelephense',
         'jdtls',
         'kotlin-language-server',
+        -- 'psalm',
         'php-cs-fixer',
         'shellcheck',
         'shfmt',
@@ -710,6 +713,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
     },
     config = function()
       -- See `:help cmp`

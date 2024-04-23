@@ -1,5 +1,5 @@
-vim.keymap.set('n', '<leader>gc', '<cmd>Git commit<CR>', { desc = 'Git commit' })
-vim.keymap.set('n', '<leader>gg', '<cmd>Git<CR>', { desc = 'Git status' })
+vim.keymap.set('n', '<leader>gc', '<cmd>Git commit<CR>', { desc = '[G]it [c]ommit' })
+vim.keymap.set('n', '<leader>gs', '<cmd>Git<CR>', { desc = '[G]it [s]tatus' })
 
 return {
   'tpope/vim-fugitive',

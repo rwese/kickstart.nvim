@@ -13,8 +13,11 @@ return {
     config = function()
       require('gitsigns').setup()
 
-      vim.keymap.set('n', '<leader>gp', ':Gitsigns preview_hunk<CR>')
-      vim.keymap.set('n', '<leader>gb', ':Gitsigns blame_line<CR>')
+      vim.keymap.set('n', '<leader>gp', '<CMD>Gitsigns preview_hunk<CR>', { desc = '[G]it [p]review hunk' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>ghr', '<CMD>Gitsigns reset_hunk<CR>', { desc = '[G]it [h]unk [r]eset' })
+
+      vim.keymap.set('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>', { desc = '[G]it [b]lame line' })
+      vim.keymap.set('n', '<leader>gB', '<CMD>Git blame<CR>', { desc = '[G]it [B]lame' })
     end,
   },
 }
