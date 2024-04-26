@@ -237,7 +237,7 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
-  { 'nvim-lua/plenary.nvim', commit = '62d1e2e5691865586187bd6aa890e43b85c00518' },
+  { 'nvim-lua/plenary.nvim' },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -492,6 +492,9 @@ require('lazy').setup({
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
+          local mapv = function(keys, func, desc)
+            vim.keymap.set('v', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          end
 
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
@@ -530,6 +533,7 @@ require('lazy').setup({
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          mapv('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
@@ -620,19 +624,19 @@ require('lazy').setup({
         'bash-language-server',
         'clang-format',
         'clangd',
-        'intelephense',
+        -- 'intelephense',
         'jdtls',
         'kotlin-language-server',
-        -- 'psalm',
         'php-cs-fixer',
+        -- 'psalm',
         'shellcheck',
         'shfmt',
+        'sqls',
         'stylua',
         'yaml-language-server',
         'yamlfmt',
         'yamllint',
         -- 'java-language-server',
-        -- 'phpactor',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -648,6 +652,21 @@ require('lazy').setup({
           end,
         },
       }
+
+      require('lspconfig').phpactor.setup {
+        cmd = { 'phpactor', 'language-server' },
+        filetypes = { 'php' },
+        root_dir = function(fname)
+          local lspconfig = require 'lspconfig'
+          return lspconfig.util.root_pattern('composer.json', '.git')(fname) or vim.fn.getcwd()
+        end,
+        init_options = {
+          ['language_server_phpstan.enabled'] = false,
+          ['language_server_psalm.enabled'] = false,
+        },
+      }
+
+      -- require('lspconfig').intelephense.setup {}
     end,
   },
 
@@ -867,6 +886,12 @@ require('lazy').setup({
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
       statusline.setup { use_icons = vim.g.have_nerd_font }
+
+      vim.api.nvim_set_hl(0, 'MiniStatuslineModeNormal', { bg = '#5588cc' })
+      vim.api.nvim_set_hl(0, 'MiniStatuslineModeInsert', { bg = '#99c794' })
+      vim.api.nvim_set_hl(0, 'MiniStatuslineModeVisual', { bg = '#f99157' })
+      vim.api.nvim_set_hl(0, 'MiniStatuslineModeReplace', { bg = '#ec5f67' })
+      vim.api.nvim_set_hl(0, 'MiniStatuslineModeCommand', { bg = '#65737e' })
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
